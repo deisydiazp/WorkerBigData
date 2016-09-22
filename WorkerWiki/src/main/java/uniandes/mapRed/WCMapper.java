@@ -131,7 +131,6 @@ public class WCMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
                         }
                     }
                     context.write(new Text(personajeEncontrado.toString()), new IntWritable(1));
-                    context.write(new Text(personajeEncontrado.toString()), new IntWritable(1));
                 }
             }
 
