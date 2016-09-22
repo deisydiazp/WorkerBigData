@@ -33,7 +33,7 @@ public class Test {
     private final List<Personaje> personajes = new ArrayList();
     private final List<Personaje> personajesFiltrados = new ArrayList();
 
-    public static final String RUTA_ARCHIVO = "D:\\Deisy universidad\\Big Data\\wiki.txt";
+    public static final String RUTA_ARCHIVO = "C:\\Users\\Rodrigo B\\Desktop\\wiki.txt";
     public static final int POSICION_ID = 1;
     public static final int POSICION_NOMBRE = 2;
     public static final int POSICION_PAIS = 3;
@@ -111,8 +111,7 @@ public class Test {
                 }
             }
             
-            
-            
+            int contadorIndexJSON = 0;
             for(Personaje filtrado : personajesFiltrados){
                 for(Personaje relacionado : filtrado.getRelacionados()){
                     for(Personaje personajeGlobal : personajes){
@@ -122,6 +121,8 @@ public class Test {
                         }
                     }
                 }
+                filtrado.setIdJSON(contadorIndexJSON);
+                contadorIndexJSON++;
             }
             
         }

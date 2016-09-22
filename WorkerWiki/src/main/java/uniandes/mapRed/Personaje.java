@@ -18,6 +18,7 @@ import java.util.List;
 public class Personaje {
 
     private String id;
+    private int idJSON;
     private String nombre;
     private Date fecha_nacimiento;
     private String pais_nacimiento;
@@ -100,6 +101,14 @@ public class Personaje {
         this.relacionadosFullData.add(personaje);
     }
 
+    public int getIdJSON() {
+        return idJSON;
+    }
+
+    public void setIdJSON(int idJSON) {
+        this.idJSON = idJSON;
+    }
+
     public String getFecha_nacimientoString() {
         String sFecha = "";
 
@@ -160,7 +169,7 @@ public class Personaje {
         String idsRelacionados = "";
         
         for (Personaje relacionado : relacionadosFullData) {
-            idsRelacionados += (idsRelacionados.isEmpty() ? "" : ",") + "\n      " + relacionado.getId();
+            idsRelacionados += (idsRelacionados.isEmpty() ? "" : ",") + "\n      " + relacionado.getIdJSON();
         }
 
         if (idsRelacionados.isEmpty()) {
@@ -168,7 +177,7 @@ public class Personaje {
         }
 
         return "{\n"
-                + "   \"index\": " + id + ", \n"
+                + "   \"index\": " + idJSON + ", \n"
                 + "   \"links\": [" + idsRelacionados + "   ], \n"
                 + "   \"score\": 5, \n"
                 + "   \"level\": 1, \n"
@@ -190,8 +199,8 @@ public class Personaje {
         for (Personaje relacionado : relacionadosFullData) {
             stringLinks += (stringLinks.isEmpty() ? "" : ",")
                     + "{"
-                    + "\n   \"source\": " + this.getId() + ","
-                    + "\n   \"target\": " + relacionado.getId() + ","
+                    + "\n   \"source\": " + this.getIdJSON()+ ","
+                    + "\n   \"target\": " + relacionado.getIdJSON()+ ","
                     + "\n   \"weight\": 0.1"
                     + "\n}";
         }
