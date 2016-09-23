@@ -81,13 +81,14 @@ public class FilterReader {
         finalJob.setJarByClass(FilterReader.class);
 
         //Multiple Inputs and join reducer
-        MultipleInputs.addInputPath(wcfJob, new Path(entrada), TextInputFormat.class);
-        MultipleInputs.addInputPath(wcfJob, new Path(INTERMIDIATE_PATH), TextInputFormat.class);
-        wcfJob.setReducerClass(WCReducerJoin.class);
-
-        wcfJob.setOutputKeyClass(Text.class);
-        wcfJob.setOutputValueClass(Text.class);
-        FileOutputFormat.setOutputPath(wcfJob, new Path(salida));
+        MultipleInputs.addInputPath(finalJob, new Path(entrada), TextInputFormat.class);
+        MultipleInputs.addInputPath(finalJob, new Path(INTERMIDIATE_PATH), TextInputFormat.class);
+        finalJob.setReducerClass(WCReducerJoin.class);
+        
+        // Output Format
+        finalJob.setOutputKeyClass(Text.class);
+        finalJob.setOutputValueClass(Text.class);
+        FileOutputFormat.setOutputPath(finalJob, new Path(salida));
 
         finalJob.waitForCompletion(true);
     }
