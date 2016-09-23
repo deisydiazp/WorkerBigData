@@ -163,8 +163,7 @@ public class Personaje {
             sRelacionados += (sRelacionados.isEmpty() ? "" : ";") + relacionado.getNombre();
         }
 
-        return "Personaje|" + (id == null ? "" : id)
-                + "|" + (nombre == null ? "" : nombre)
+        return (id == null ? "" : id)
                 + "|" + (pais_nacimiento == null ? "" : pais_nacimiento)
                 + "|" + (fecha_nacimiento == null ? "" : getFecha_nacimientoString())
                 + "|" + sRelacionados;
