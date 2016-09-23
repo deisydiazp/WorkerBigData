@@ -17,6 +17,13 @@ import java.util.List;
  */
 public class Personaje {
 
+    // poiciones estructura toString
+    public static final int POSICION_ID = 1;
+    public static final int POSICION_NOMBRE = 2;
+    public static final int POSICION_PAIS = 3;
+    public static final int POSICION_FECHA = 4;
+    public static final int POSICION_RELACIONADOS = 5;
+
     private String id;
     private int idJSON;
     private String nombre;
@@ -133,8 +140,8 @@ public class Personaje {
 
         Date fecha = null;
 
-        String[] split = sFecha.split(separador);
         try {
+            String[] split = sFecha.split(separador);
             Calendar c = Calendar.getInstance();
             c.set(Integer.parseInt(split[0]), Integer.parseInt(split[1]) - 1, Integer.parseInt(split[2]), 0, 0);
             fecha = c.getTime();
@@ -160,8 +167,7 @@ public class Personaje {
                 + "|" + (nombre == null ? "" : nombre)
                 + "|" + (pais_nacimiento == null ? "" : pais_nacimiento)
                 + "|" + (fecha_nacimiento == null ? "" : getFecha_nacimientoString())
-                + "|" + sRelacionados
-                + ";";
+                + "|" + sRelacionados;
     }
 
     public String toGraphStringNodes() {

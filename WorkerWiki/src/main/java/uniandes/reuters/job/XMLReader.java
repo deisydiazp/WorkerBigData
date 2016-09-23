@@ -11,7 +11,6 @@ import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 
 import uniandes.mapRed.WCMapper;
-import uniandes.mapRed.WCReducer;
 
 public class XMLReader {
 
@@ -25,53 +24,37 @@ public class XMLReader {
 
         try {
             ejecutarJob(entrada, salida);
-        } catch (Exception e) { //Puede ser IOException, ClassNotFoundException o InterruptedException
+        } catch (IOException | ClassNotFoundException | InterruptedException e) {
             e.printStackTrace();
         }
 
     }
 
     public static void ejecutarJob(String entrada, String salida) throws IOException, ClassNotFoundException, InterruptedException {
-        /**
-         * Objeto de configuración, dependiendo de la versión de Hadoop uno u
-         * otro es requerido. 
-		 *
-         */
+        
         Configuration conf = new Configuration();
-
+        
         conf.set("textinputformat.record.delimiter", "</page>");
 
-        Job wcJob = Job.getInstance(conf, "WordCounter Job");
-        wcJob.setJarByClass(XMLReader.class);
+        Job wcJob = Job.getInstance(conf, "Wiki Job");
+        wcJob.setJarByClass(FilterReader.class);
 
-        //////////////////////
         //Mapper
-        //////////////////////
         wcJob.setMapperClass(WCMapper.class);
 
         wcJob.setMapOutputKeyClass(Text.class);
         wcJob.setMapOutputValueClass(IntWritable.class);
-        ///////////////////////////
-        //Reducer
-        ///////////////////////////
-        //wcJob.setReducerClass(WCReducer.class);
-        //wcJob.setOutputKeyClass(Text.class);
-        //wcJob.setOutputValueClass(IntWritable.class);
-
-        ///////////////////////////
+        wcJob.setNumReduceTasks(0);
+        
         //Input Format
-        ///////////////////////////
-        //Advertencia: Hay dos clases con el mismo nombre, pero no son equivalentes. 
-        //Se usa, en este caso, org.apache.hadoop.mapreduce.lib.input.TextInputFormat
         TextInputFormat.setInputPaths(wcJob, new Path(entrada));
         wcJob.setInputFormatClass(TextInputFormat.class);
 
-        ////////////////////
         ///Output Format
-        //////////////////////
         TextOutputFormat.setOutputPath(wcJob, new Path(salida));
         wcJob.setOutputFormatClass(TextOutputFormat.class);
+        
         wcJob.waitForCompletion(true);
-        System.out.println(wcJob.toString());
+        
     }
 }
