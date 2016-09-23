@@ -1,19 +1,15 @@
 package uniandes.mapRed;
 
 import java.io.IOException;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-public class WCMapperFiltro extends Mapper<LongWritable, Text, Text, IntWritable> {
+public class WCMapperFiltro extends Mapper<LongWritable, Text, Text, Text> {
 
     public static final Log log = LogFactory.getLog(WCMapperFiltro.class);
     
@@ -58,10 +54,10 @@ public class WCMapperFiltro extends Mapper<LongWritable, Text, Text, IntWritable
                 cantidadRelacionados--;
                 Personaje personajeRelacionado = new Personaje(null, relacionados[cantidadRelacionados], null, null);
                 personajeEncontrado.addRelacionado(personajeRelacionado);
-                context.write(new Text(personajeEncontrado.toString()), new IntWritable(1));
+                context.write(new Text(personajeEncontrado.getNombre()), new Text(personajeEncontrado.toString()));
             }
             
-            context.write(new Text(personajeEncontrado.toString()), new IntWritable(1));
+            context.write(new Text(personajeEncontrado.getNombre()), new Text(personajeEncontrado.toString()));
 
         }
 

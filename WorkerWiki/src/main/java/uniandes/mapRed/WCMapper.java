@@ -8,12 +8,11 @@ import java.util.regex.Pattern;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-public class WCMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
+public class WCMapper extends Mapper<LongWritable, Text, Text, Text> {
 
     public static final Log log = LogFactory.getLog(WCMapper.class);
 
@@ -125,7 +124,7 @@ public class WCMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
                             personajeEncontrado.addRelacionado(new Personaje(null, nombreRelacionado, null, null));
                         }
                     }
-                    context.write(new Text(personajeEncontrado.toString()), new IntWritable(1));
+                    context.write(new Text(personajeEncontrado.getNombre()), new Text(personajeEncontrado.toString()));
                 }
             }
 

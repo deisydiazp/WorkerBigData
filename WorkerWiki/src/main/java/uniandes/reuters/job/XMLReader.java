@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
@@ -43,7 +42,7 @@ public class XMLReader {
         wcJob.setMapperClass(WCMapper.class);
 
         wcJob.setMapOutputKeyClass(Text.class);
-        wcJob.setMapOutputValueClass(IntWritable.class);
+        wcJob.setMapOutputValueClass(Text.class);
         wcJob.setNumReduceTasks(0);
         
         //Input Format
