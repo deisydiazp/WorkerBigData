@@ -33,7 +33,7 @@ public class Test {
     private final List<Personaje> personajes = new ArrayList();
     private final List<Personaje> personajesFiltrados = new ArrayList();
 
-    public static final String RUTA_ARCHIVO = "C:\\Users\\Rodrigo B\\Desktop\\wiki.txt";
+    public static final String RUTA_ARCHIVO = "C:\\prueba\\part-r-00000";
     public static final int POSICION_ID = 1;
     public static final int POSICION_NOMBRE = 2;
     public static final int POSICION_PAIS = 3;
@@ -76,6 +76,7 @@ public class Test {
                 personajes.add(personajeEncontrado);
                 
                 line = br.readLine();
+                System.out.println("lineas: " + line);
             }
         }
 
