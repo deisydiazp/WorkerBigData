@@ -17,7 +17,7 @@ import uniandes.mapRed.WCReducerJoin;
 
 public class FilterReader {
 
-    private static final String INTERMIDIATE_PATH = "intermediate_output" + Calendar.getInstance().getTime().toString();
+    private static final String INTERMIDIATE_PATH = "/user/bigdata7/intermedio";// + Calendar.getInstance().getTime().toString();
 
     public static void main(String[] args) {
         if (args.length < 6) {
@@ -62,7 +62,7 @@ public class FilterReader {
         wcfJob.setMapOutputKeyClass(Text.class);
         wcfJob.setMapOutputValueClass(Text.class);
 
-        wcfJob.setNumReduceTasks(0);
+        //wcfJob.setNumReduceTasks(0);
 
         //Input Format
         TextInputFormat.setInputPaths(wcfJob, new Path(entrada));

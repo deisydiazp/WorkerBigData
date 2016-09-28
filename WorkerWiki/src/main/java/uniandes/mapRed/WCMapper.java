@@ -104,7 +104,7 @@ public class WCMapper extends Mapper<LongWritable, Text, Text, Text> {
                         }   
                     }
 
-                    Personaje personajeEncontrado = new Personaje(id, title, fecha_nacido, lugar_nacido);
+                    Personaje personajeEncontrado = new Personaje(id, title.trim(), fecha_nacido, lugar_nacido);
 
                     //  Obtiene influencias y relacionados
                     //      Estructuras  con | influences       =  | influenced       = 

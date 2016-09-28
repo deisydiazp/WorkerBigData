@@ -43,7 +43,7 @@ public class XMLReader {
 
         wcJob.setMapOutputKeyClass(Text.class);
         wcJob.setMapOutputValueClass(Text.class);
-        wcJob.setNumReduceTasks(0);
+        //wcJob.setNumReduceTasks(0);
         
         //Input Format
         TextInputFormat.setInputPaths(wcJob, new Path(entrada));
