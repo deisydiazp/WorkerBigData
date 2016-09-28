@@ -5,6 +5,7 @@
  */
 package uniandes.mapRed;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -31,9 +32,31 @@ public class Personaje {
     private String coverURL;
     private String url;
 
-    private List<Personaje> relacionados = new ArrayList();
-    private List<Personaje> relacionadosFullData = new ArrayList();
+    private List<String> nombresRelaciones=new ArrayList<>();
+    private List<Personaje> relacionados = new ArrayList<>();
+    private List<Personaje> relacionadosFullData = new ArrayList<>();
 
+    private static final SimpleDateFormat sdf=new SimpleDateFormat("yyyy/MM/dd");
+    
+    public Personaje(String texto) throws Exception{
+        //?tefan Luchian	|2475912|Unknown|1868/02/01|Edgar Degas
+        //texto=texto.replaceAll(";\t1", "");
+        String[] datos=texto.split("\\|");
+        this.id=datos[1];
+        this.nombre=datos[0].trim();
+        this.pais_nacimiento=datos[2];
+        this.fecha_nacimiento=sdf.parse(datos[3]);
+        this.coverURL = "https://en.wikipedia.org/w/api.php?action=query&pageids=" + id + "&prop=pageimages&format=json&pithumbsize=100";
+        this.url = "https://en.wikipedia.org/?curid=" + id;
+        //Personaje|1002676|Jerry Sadowitz|Unknown|1961/11/04|Lenny Bruce;Peter Cook;	1
+        if(datos.length>4 && datos[4]!=null && datos[4].compareTo("")!=0){
+            String[] nombresRelaciones=datos[4].split(";");
+            for(int i=0;i<nombresRelaciones.length;i++){
+                this.nombresRelaciones.add(nombresRelaciones[i]);
+            }
+        }
+    }
+    
     public Personaje(String id, String nombre, Date fecha_nacimiento, String pais_nacimiento) {
         this.id = id;
         this.nombre = nombre;
@@ -116,14 +139,7 @@ public class Personaje {
     }
 
     public String getFecha_nacimientoString() {
-        String sFecha = "";
-
-        if (fecha_nacimiento != null) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
-            sFecha = dateFormat.format(fecha_nacimiento);
-        }
-
-        return sFecha;
+        return sdf.format(fecha_nacimiento);
     }
 
     /**
@@ -154,6 +170,14 @@ public class Personaje {
         return fecha;
     }
 
+    public List<String> getNombresRelaciones() {
+        return nombresRelaciones;
+    }
+
+    public void setNombresRelaciones(List<String> nombresRelaciones) {
+        this.nombresRelaciones = nombresRelaciones;
+    }
+
     @Override
     public String toString() {
         
@@ -162,7 +186,7 @@ public class Personaje {
             sRelacionados += (sRelacionados.isEmpty() ? "" : ";") + relacionado.getNombre();
         }
 
-        return (id == null ? "" : id)
+        return  (id == null ? "" : id)
                 + "|" + (pais_nacimiento == null ? "" : pais_nacimiento)
                 + "|" + (fecha_nacimiento == null ? "" : getFecha_nacimientoString())
                 + "|" + sRelacionados;
