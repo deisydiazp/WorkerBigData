@@ -164,9 +164,17 @@ public class Test {
     
     public static void main(String[] args) {
         
+        String[] datosPersonaje = "43601143|Colombia|2016/09/27|".toString().split("\\|");
+        System.out.println(datosPersonaje[0]);
+        System.out.println(datosPersonaje[1]);
+        System.out.println(datosPersonaje[2]);
+        System.out.println(datosPersonaje.length);
+        
+        /*
         Test test = new Test();
         try {
             test.obtenerPersonajesPorFiltro(new File(RUTA_ARCHIVO), null, null, null, null);
+            
         } catch (IOException ex) {
             Logger.getLogger(Test.class.getName()).log(Level.SEVERE, null, ex);
         }

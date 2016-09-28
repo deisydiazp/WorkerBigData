@@ -48,14 +48,16 @@ public class WCMapperFiltro extends Mapper<LongWritable, Text, Text, Text> {
                 && (pais.isEmpty() || personajeEncontrado.getPais_nacimiento().contains(pais))) {
 
             // obtiene los relacionados
-            String[] relacionados = datosPersonaje[Personaje.POSICION_RELACIONADOS].split(";");
-            int cantidadRelacionados = relacionados.length;
+            if(datosPersonaje.length > Personaje.POSICION_RELACIONADOS){
+                String[] relacionados = datosPersonaje[Personaje.POSICION_RELACIONADOS].split(";");
+                int cantidadRelacionados = relacionados.length;
 
-            while (cantidadRelacionados > 0) {
-                cantidadRelacionados--;
-                Personaje personajeRelacionado = new Personaje(null, relacionados[cantidadRelacionados], null, null);
-                personajeEncontrado.addRelacionado(personajeRelacionado);
-                context.write(new Text(personajeEncontrado.getNombre()), new Text(personajeEncontrado.toString()));
+                while (cantidadRelacionados > 0) {
+                    cantidadRelacionados--;
+                    Personaje personajeRelacionado = new Personaje(null, relacionados[cantidadRelacionados], null, null);
+                    personajeEncontrado.addRelacionado(personajeRelacionado);
+                    context.write(new Text(personajeEncontrado.getNombre()), new Text(personajeEncontrado.toString()));
+                }
             }
             
             context.write(new Text(personajeEncontrado.getNombre()), new Text(personajeEncontrado.toString()));
