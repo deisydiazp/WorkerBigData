@@ -33,13 +33,14 @@ public class WCMapperFiltro extends Mapper<LongWritable, Text, Text, Text> {
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 
+        String nombrePersonaje = key.toString();
         String[] datosPersonaje = value.toString().split("\\|");
 
         // obtiene fecha
         Date fecha_nacido = Personaje.getFechaDeString(datosPersonaje[Personaje.POSICION_FECHA], "/", false);
 
         // crea personaje
-        Personaje personajeEncontrado = new Personaje(datosPersonaje[Personaje.POSICION_ID], datosPersonaje[Personaje.POSICION_NOMBRE], fecha_nacido, datosPersonaje[Personaje.POSICION_PAIS]);
+        Personaje personajeEncontrado = new Personaje(datosPersonaje[Personaje.POSICION_ID], nombrePersonaje, fecha_nacido, datosPersonaje[Personaje.POSICION_PAIS]);
 
         if ((nombre.isEmpty() || personajeEncontrado.getNombre().contains(nombre))
                 && (fechaIni == null || fecha_nacido.after(fechaIni))

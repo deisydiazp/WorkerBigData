@@ -18,11 +18,10 @@ import java.util.List;
 public class Personaje {
 
     // poiciones estructura toString
-    public static final int POSICION_ID = 1;
-    public static final int POSICION_NOMBRE = 2;
-    public static final int POSICION_PAIS = 3;
-    public static final int POSICION_FECHA = 4;
-    public static final int POSICION_RELACIONADOS = 5;
+    public static final int POSICION_ID = 0;
+    public static final int POSICION_PAIS = 1;
+    public static final int POSICION_FECHA = 2;
+    public static final int POSICION_RELACIONADOS = 3;
 
     private String id;
     private int idJSON;
