@@ -8,6 +8,7 @@ import org.apache.hadoop.io.LongWritable;
 
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
+import static uniandes.mapRed.WCMapper.log;
 
 public class WCMapperFiltro extends Mapper<LongWritable, Text, Text, Text> {
 
@@ -33,16 +34,18 @@ public class WCMapperFiltro extends Mapper<LongWritable, Text, Text, Text> {
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 
-        String nombrePersonaje = key.toString();
-        String[] datosPersonaje = value.toString().split("\\|");
+         String[] datosPersonaje = value.toString().split("\\|");
+        
+        String nombrePersonaje = datosPersonaje[Personaje.POSICION_ID].split("\t")[0];
+        String idPersonaje = datosPersonaje[Personaje.POSICION_ID].split("\t")[1];
 
         // obtiene fecha
         Date fecha_nacido = Personaje.getFechaDeString(datosPersonaje[Personaje.POSICION_FECHA], "/", false);
         
         // crea personaje
-        Personaje personajeEncontrado = new Personaje(datosPersonaje[Personaje.POSICION_ID], nombrePersonaje, fecha_nacido, datosPersonaje[Personaje.POSICION_PAIS]);
+        Personaje personajeEncontrado = new Personaje(idPersonaje, nombrePersonaje, fecha_nacido, datosPersonaje[Personaje.POSICION_PAIS]);
         
-        if ((nombre.isEmpty() || personajeEncontrado.getNombre().contains(nombre))
+        if ((nombre.isEmpty() || personajeEncontrado.getNombre().contains(nombre)) 
                 && (fechaIni == null || fecha_nacido.after(fechaIni))
                 && (fechaFin == null || fecha_nacido.before(fechaFin))
                 && (pais.isEmpty() || personajeEncontrado.getPais_nacimiento().contains(pais))) {
@@ -60,7 +63,7 @@ public class WCMapperFiltro extends Mapper<LongWritable, Text, Text, Text> {
                 }
             }
             
-            System.out.println("Mapper persona: " + nombrePersonaje + " | " + personajeEncontrado.getNombre() + " | " + personajeEncontrado.toString());
+            log.info("************Mapper persona: " + nombrePersonaje + " | " + personajeEncontrado.getId() + " | " + personajeEncontrado.toString());
             
             context.write(new Text(personajeEncontrado.getNombre()), new Text(personajeEncontrado.toString()));
             

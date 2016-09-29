@@ -17,7 +17,8 @@ import uniandes.mapRed.WCReducerJoin;
 
 public class FilterReader {
 
-    private static final String INTERMIDIATE_PATH = "/user/bigdata7/intermedio";// + Calendar.getInstance().getTime().toString();
+    //private static final String INTERMIDIATE_PATH = "/user/bigdata7/intermedio";// + Calendar.getInstance().getTime().toString();
+    private static final String INTERMIDIATE_PATH = "intermedio";// + Calendar.getInstance().getTime().toString();
 
     public static void main(String[] args) {
         if (args.length < 6) {
