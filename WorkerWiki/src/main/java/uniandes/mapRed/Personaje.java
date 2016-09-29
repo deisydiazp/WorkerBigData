@@ -5,12 +5,19 @@
  */
 package uniandes.mapRed;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import org.apache.commons.io.IOUtils;
 
 /**
  *
@@ -238,6 +245,24 @@ public class Personaje {
         }
 
         return stringLinks;
+    }
+    
+    public String obtenerURLImagen(String personajeCoverURL) throws MalformedURLException, IOException {
+
+        String urlImg = null;
+
+        InputStream input = new URL(personajeCoverURL).openStream();
+        String jsonString = IOUtils.toString(input);
+
+        Pattern regexImg = Pattern.compile("http(.)*jpg\",\"width");
+        Matcher mImg = regexImg.matcher(jsonString);
+
+        if (mImg.find()) {
+            urlImg = mImg.group(0);
+            urlImg = urlImg.replaceAll("\",\"width", "");
+        }
+
+        return urlImg;
     }
 
 }

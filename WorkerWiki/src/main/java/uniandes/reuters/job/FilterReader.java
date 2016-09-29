@@ -89,6 +89,7 @@ public class FilterReader {
         finalJob.setOutputKeyClass(Text.class);
         finalJob.setOutputValueClass(Text.class);
         FileOutputFormat.setOutputPath(finalJob, new Path(salida));
+        finalJob.setOutputFormatClass(TextOutputFormat.class);
 
         finalJob.waitForCompletion(true);
     }
