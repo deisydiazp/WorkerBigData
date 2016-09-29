@@ -164,13 +164,8 @@ public class Test {
     
     public static void main(String[] args) {
         
-        String[] datosPersonaje = "43601143|Colombia||-".toString().split("\\|");
-        System.out.println(datosPersonaje[0]);
+        String[] datosPersonaje = "1038710	Antonio Caro".toString().split("\t");
         System.out.println(datosPersonaje[1]);
-        System.out.println(datosPersonaje[2]);
-        if(datosPersonaje.length > 3){
-            System.out.println(datosPersonaje[3]);
-        }
         
         /*
         Test test = new Test();

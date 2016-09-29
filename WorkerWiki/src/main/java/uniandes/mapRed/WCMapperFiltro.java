@@ -4,11 +4,12 @@ import java.io.IOException;
 import java.util.Date;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.hadoop.io.LongWritable;
 
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-public class WCMapperFiltro extends Mapper<Text, Text, Text, Text> {
+public class WCMapperFiltro extends Mapper<LongWritable, Text, Text, Text> {
 
     public static final Log log = LogFactory.getLog(WCMapperFiltro.class);
     
@@ -30,9 +31,9 @@ public class WCMapperFiltro extends Mapper<Text, Text, Text, Text> {
     }
 
     @Override
-    protected void map(Text key, Text value, Context context) throws IOException, InterruptedException {
+    protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 
-        String nombrePersonaje = key.toString();
+        String nombrePersonaje = key.toString().split("\t")[1];
         String[] datosPersonaje = value.toString().split("\\|");
 
         // obtiene fecha
