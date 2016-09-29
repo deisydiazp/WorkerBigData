@@ -38,10 +38,10 @@ public class WCMapperFiltro extends Mapper<LongWritable, Text, Text, Text> {
 
         // obtiene fecha
         Date fecha_nacido = Personaje.getFechaDeString(datosPersonaje[Personaje.POSICION_FECHA], "/", false);
-
+        
         // crea personaje
         Personaje personajeEncontrado = new Personaje(datosPersonaje[Personaje.POSICION_ID], nombrePersonaje, fecha_nacido, datosPersonaje[Personaje.POSICION_PAIS]);
-
+        
         if ((nombre.isEmpty() || personajeEncontrado.getNombre().contains(nombre))
                 && (fechaIni == null || fecha_nacido.after(fechaIni))
                 && (fechaFin == null || fecha_nacido.before(fechaFin))
@@ -60,8 +60,10 @@ public class WCMapperFiltro extends Mapper<LongWritable, Text, Text, Text> {
                 }
             }
             
+            System.out.println("Mapper persona: " + nombrePersonaje + " | " + personajeEncontrado.getNombre() + " | " + personajeEncontrado.toString());
+            
             context.write(new Text(personajeEncontrado.getNombre()), new Text(personajeEncontrado.toString()));
-
+            
         }
 
     }

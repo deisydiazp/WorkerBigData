@@ -12,6 +12,7 @@ public class WCReducer extends Reducer<Text, Text, Text, Text> {
             throws IOException, InterruptedException {
 
         for (Text textValue : values) {
+            System.out.println("Llave WCReducer: " + key + " | Valor: " + textValue.toString());
             context.write(key, textValue);
         }
 
