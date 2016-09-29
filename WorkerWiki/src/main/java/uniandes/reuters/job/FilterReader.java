@@ -1,7 +1,6 @@
 package uniandes.reuters.job;
 
 import java.io.IOException;
-import java.util.Calendar;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
@@ -13,6 +12,7 @@ import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 
 import uniandes.mapRed.WCMapperFiltro;
+import uniandes.mapRed.WCReducer;
 import uniandes.mapRed.WCReducerJoin;
 
 public class FilterReader {
@@ -61,8 +61,11 @@ public class FilterReader {
         wcfJob.setMapperClass(WCMapperFiltro.class);
         wcfJob.setMapOutputKeyClass(Text.class);
         wcfJob.setMapOutputValueClass(Text.class);
-
-        //wcfJob.setNumReduceTasks(0);
+        
+        //Reducer
+        wcfJob.setReducerClass(WCReducer.class);
+        wcfJob.setOutputKeyClass(Text.class);
+        wcfJob.setOutputValueClass(Text.class);
 
         //Input Format
         TextInputFormat.setInputPaths(wcfJob, new Path(entrada));
