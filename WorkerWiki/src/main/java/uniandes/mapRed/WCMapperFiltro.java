@@ -33,7 +33,7 @@ public class WCMapperFiltro extends Mapper<LongWritable, Text, Text, Text> {
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 
-        String nombrePersonaje = key.toString().split("\t")[1];
+        String nombrePersonaje = key.toString();
         String[] datosPersonaje = value.toString().split("\\|");
 
         // obtiene fecha
